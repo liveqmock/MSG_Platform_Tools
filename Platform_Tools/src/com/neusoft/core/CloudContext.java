@@ -8,7 +8,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.util.SimpleOrderedMap;
 
-import com.neusoft.util.date.RivuDocument;
+import com.neusoft.util.date.EapDocument;
 import com.neusoft.util.date.SearchResult;
 
 
@@ -105,14 +105,14 @@ public class CloudContext {
 			result.getFacetList().setFacetQuery(rsp.getFacetQuery()) ;
 			result.getFacetList().setFacetDateList(rsp.getFacetDates()) ;
 		}
-		RivuDocument rivuDocument = null ;
+		EapDocument eapDocument = null ;
 		SimpleOrderedMap nlt = (SimpleOrderedMap) rsp.getResponse().get("moreLikeThis") ;
 		for(int i=0 ; i<rsp.getResults().size() ; i++){
-			rivuDocument = new RivuDocument(rsp.getResults().get(i), rsp.getHighlighting()!=null?rsp.getHighlighting().get(rsp.getResults().get(i).get("id")):null) ;
-			if(nlt!=null && nlt.size()>0 && nlt.get(rivuDocument.get("id"))!=null){
-				rivuDocument.setMorelike((SolrDocumentList) (nlt.get(rivuDocument.get("id")))) ;
+			eapDocument = new EapDocument(rsp.getResults().get(i), rsp.getHighlighting()!=null?rsp.getHighlighting().get(rsp.getResults().get(i).get("id")):null) ;
+			if(nlt!=null && nlt.size()>0 && nlt.get(eapDocument.get("id"))!=null){
+				eapDocument.setMorelike((SolrDocumentList) (nlt.get(eapDocument.get("id")))) ;
 			}
-			result.getDocList().add(rivuDocument) ;
+			result.getDocList().add(eapDocument) ;
 		}
 		
 		return result ;

@@ -6,7 +6,7 @@ import java.util.Date;
 import org.quartz.CronExpression;
 
 
-public class RivuTools {
+public class EapTools {
 	/**
 	 * 
 	 * @param crontabExp

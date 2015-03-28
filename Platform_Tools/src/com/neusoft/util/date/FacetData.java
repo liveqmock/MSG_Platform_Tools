@@ -36,9 +36,9 @@ import org.apache.solr.common.util.NamedList;
  */
 public class FacetData {
 	private Map<String ,Integer> facetQuery = new HashMap<String ,Integer>();
-	private List<RivuFacetField> faceFieldList = new ArrayList<RivuFacetField>();
-	private List<RivuFacetField> facetDateList = new ArrayList<RivuFacetField>();
-	private List<RivuFacetField> facetQueryValue = new ArrayList<RivuFacetField>();
+	private List<EapFacetField> faceFieldList = new ArrayList<EapFacetField>();
+	private List<EapFacetField> facetDateList = new ArrayList<EapFacetField>();
+	private List<EapFacetField> facetQueryValue = new ArrayList<EapFacetField>();
 	private NamedList<List<PivotField>>  pivotValue ;
 	public Map<String, Integer> getFacetQuery() {
 		return facetQuery;
@@ -50,11 +50,11 @@ public class FacetData {
 				String query = iterator.next() ;
 				{
 					this.facetQuery.put(query, facetQuery.get(query)) ;
-					this.facetQueryValue.add(new RivuFacetField(query,query ,facetQuery.get(query) ,this.facetQueryValue.size() , null)) ;
+					this.facetQueryValue.add(new EapFacetField(query,query ,facetQuery.get(query) ,this.facetQueryValue.size() , null)) ;
 				}
 			}
-			Collections.sort(this.facetQueryValue, new Comparator<RivuFacetField>(){
-				public int compare(RivuFacetField o1, RivuFacetField o2) {
+			Collections.sort(this.facetQueryValue, new Comparator<EapFacetField>(){
+				public int compare(EapFacetField o1, EapFacetField o2) {
 					return o1.getValue()< o2.getValue()?1:0;
 				}}) ;
 		}
@@ -63,8 +63,8 @@ public class FacetData {
 	 * 排序
 	 */
 	public boolean sortByIndex(){
-		Collections.sort(this.facetQueryValue, new Comparator<RivuFacetField>(){
-			public int compare(RivuFacetField o1, RivuFacetField o2) {
+		Collections.sort(this.facetQueryValue, new Comparator<EapFacetField>(){
+			public int compare(EapFacetField o1, EapFacetField o2) {
 				return o1.getIndex()>= o2.getIndex()?1:0;
 			}}) ;
 		return true ;
@@ -73,14 +73,14 @@ public class FacetData {
 	 * 排序
 	 */
 	public boolean sortByValue(){
-		Collections.sort(this.facetQueryValue, new Comparator<RivuFacetField>(){
-			public int compare(RivuFacetField o1, RivuFacetField o2) {
+		Collections.sort(this.facetQueryValue, new Comparator<EapFacetField>(){
+			public int compare(EapFacetField o1, EapFacetField o2) {
 				return o1.getValue()< o2.getValue()?1:0;
 			}}) ;
 		return true ;
 	}
 	
-	public List<RivuFacetField> getFaceFieldList() {
+	public List<EapFacetField> getFaceFieldList() {
 		return faceFieldList;
 	}
 	
@@ -94,11 +94,11 @@ public class FacetData {
 					}
 					i++ ;
 				}
-				this.faceFieldList.add(new RivuFacetField(ff.getName(),ff.getName(),ff)) ;
+				this.faceFieldList.add(new EapFacetField(ff.getName(),ff.getName(),ff)) ;
 			}
 		}
 	}
-	public List<RivuFacetField> getFacetDateList() {
+	public List<EapFacetField> getFacetDateList() {
 		return facetDateList;
 	}
 	public void setFacetDateList(List<FacetField> facetDateList) {
@@ -111,11 +111,11 @@ public class FacetData {
 					}
 					i++ ;
 				}
-				this.facetDateList.add(new RivuFacetField(ff.getName(),ff.getName(),ff)) ;
+				this.facetDateList.add(new EapFacetField(ff.getName(),ff.getName(),ff)) ;
 			}
 		}
 	}
-	public List<RivuFacetField> getFacetQueryValue() {
+	public List<EapFacetField> getFacetQueryValue() {
 		return facetQueryValue;
 	}
 	public NamedList<List<PivotField>>  getPivotValue() {

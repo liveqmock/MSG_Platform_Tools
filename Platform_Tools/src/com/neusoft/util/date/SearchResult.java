@@ -40,7 +40,7 @@ public class SearchResult {
 	private float maxscore ;
 	private int rows ;
 	private SolrParams params ;
-	private List<RivuDocument> docList = new ArrayList<RivuDocument>();
+	private List<EapDocument> docList = new ArrayList<EapDocument>();
 	private FacetData facetList = new FacetData() ;
 	private List<FacetData> staList = new ArrayList<FacetData>() ;
 	private boolean error = false ;
@@ -283,10 +283,10 @@ public class SearchResult {
 	 * @param dataList
 	 * @return
 	 */
-	public String value(int count , String code, List<RivuFacetField> faceFieldList){
+	public String value(int count , String code, List<EapFacetField> faceFieldList){
 		String value = null ;
 		List<FacetField.Count> dataList = null ;
-		for(RivuFacetField rff : faceFieldList){
+		for(EapFacetField rff : faceFieldList){
 			if(rff.getCode().equals(code)){
 				dataList = rff.getFacet().getValues();
 			}
@@ -308,10 +308,10 @@ public class SearchResult {
 	 * @param dataList
 	 * @return
 	 */
-	public long value(String code , String key, List<RivuFacetField> faceFieldList){
+	public long value(String code , String key, List<EapFacetField> faceFieldList){
 		long value = 0 ;
 		List<FacetField.Count> dataList = null ;
-		for(RivuFacetField rff : faceFieldList){
+		for(EapFacetField rff : faceFieldList){
 			if(rff.getCode().equals(code)){
 				dataList = rff.getFacet().getValues();
 			}
@@ -404,9 +404,9 @@ public class SearchResult {
 	 * @param dataList
 	 * @return
 	 */
-	public long value(String code , String key , List<RivuFacetField> faceFieldList , boolean tongbi){
+	public long value(String code , String key , List<EapFacetField> faceFieldList , boolean tongbi){
 		long value =0 ;
-		for(RivuFacetField rff : faceFieldList){
+		for(EapFacetField rff : faceFieldList){
 			if(rff.getCode().equals(code)){
 				value = value(key , rff.getFacet().getValues());
 			}

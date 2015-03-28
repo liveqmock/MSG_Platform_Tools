@@ -21,12 +21,12 @@ import com.neusoft.util.PlatformMsgTools;
  * @author iceworld
  *
  */
-public class RivuDocument {
+public class EapDocument {
 	private SolrDocument document ;
 	private Map<String , List<String>> hlList ;
 	private SolrDocumentList morelike = new SolrDocumentList();
-	public RivuDocument(){}
-	public RivuDocument(SolrDocument document , Map<String , List<String>> hlList){
+	public EapDocument(){}
+	public EapDocument(SolrDocument document , Map<String , List<String>> hlList){
 		this.document = document ;
 		this.hlList = hlList!=null ? hlList: new java.util.HashMap() ;
 	}

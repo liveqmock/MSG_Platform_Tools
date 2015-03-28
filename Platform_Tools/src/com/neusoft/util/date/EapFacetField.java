@@ -2,27 +2,27 @@ package com.neusoft.util.date;
 
 import org.apache.solr.client.solrj.response.FacetField;
 
-public class RivuFacetField {
+public class EapFacetField {
 	private String name  ;
 	private String code ;
 	private FacetField facet;
 	private int value ;
 	private int index ;
 	
-	public RivuFacetField(String name , String code , FacetField facet)
+	public EapFacetField(String name , String code , FacetField facet)
 	{
 		this.name = name ;
 		this.code = code ;
 		this.facet = facet ;
 	}
-	public RivuFacetField(String name , String code , int value , FacetField facet)
+	public EapFacetField(String name , String code , int value , FacetField facet)
 	{
 		this.name = name ;
 		this.code = code ;
 		this.facet = facet ;
 		this.value = value ;
 	}
-	public RivuFacetField(String name , String code , int value , int index, FacetField facet)
+	public EapFacetField(String name , String code , int value , int index, FacetField facet)
 	{
 		this.name = name ;
 		this.code = code ;
