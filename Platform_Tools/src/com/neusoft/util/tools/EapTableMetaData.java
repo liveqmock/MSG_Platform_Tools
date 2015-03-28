@@ -19,14 +19,14 @@ import org.hibernate.util.StringHelper;
  * 
  * @author Christoph Sturm
  */
-public class PlatformTableMetaData {
+public class EapTableMetaData {
 
 	private static final Log log = LogFactory.getLog(TableMetadata.class);
 
 	private final String catalog;
 	private final String schema;
 	private final String name;
-	private final List<PlatformColumnMetadata> columnMetaData = new ArrayList<PlatformColumnMetadata>();
+	private final List<EapColumnMetadata> columnMetaData = new ArrayList<EapColumnMetadata>();
 	private final Map columName = new HashMap() ;
 	/**
 	 * 
@@ -35,7 +35,7 @@ public class PlatformTableMetaData {
 	 * @param extras
 	 * @throws SQLException
 	 */
-	PlatformTableMetaData(ResultSet rs, DatabaseMetaData meta, boolean extras)
+	EapTableMetaData(ResultSet rs, DatabaseMetaData meta, boolean extras)
 			throws SQLException {
 		catalog = rs.getString("TABLE_CAT");
 		schema = rs.getString("TABLE_SCHEM");
@@ -49,7 +49,7 @@ public class PlatformTableMetaData {
 	 * @param extras
 	 * @throws SQLException
 	 */
-	PlatformTableMetaData(String tableName , String tableCatalog , String tableSchema, ResultSetMetaData meta, boolean extras)
+	EapTableMetaData(String tableName , String tableCatalog , String tableSchema, ResultSetMetaData meta, boolean extras)
 			throws SQLException {
 		catalog = tableCatalog;
 		schema = tableSchema;
@@ -65,7 +65,7 @@ public class PlatformTableMetaData {
 		return "TableMetadata(" + name + ')';
 	}
 
-	public List<PlatformColumnMetadata> getColumnMetadatas() {
+	public List<EapColumnMetadata> getColumnMetadatas() {
 		return columnMetaData;
 	}
 
@@ -81,7 +81,7 @@ public class PlatformTableMetaData {
 			return;
 
 		if (columName.get(column) == null) {
-			PlatformColumnMetadata info = new PlatformColumnMetadata(rs);
+			EapColumnMetadata info = new EapColumnMetadata(rs);
 			columnMetaData.add(info) ;
 			columName.put(info.getName().toLowerCase(),"");
 		}
@@ -97,7 +97,7 @@ public class PlatformTableMetaData {
 			return;
 
 		if (columName.get(name) == null) {
-			PlatformColumnMetadata info = new PlatformColumnMetadata(name , typeName , typeCode);
+			EapColumnMetadata info = new EapColumnMetadata(name , typeName , typeCode);
 			columnMetaData.add(info) ;
 			columName.put(info.getName().toLowerCase(),"");
 		}

@@ -14,9 +14,9 @@ import java.util.Properties;
 
 import org.hibernate.util.StringHelper;
 
-public class PlatformDatabaseMetadata{
+public class EapDatabaseMetadata{
 
-	public PlatformDatabaseMetadata(Connection connection , Properties properties)
+	public EapDatabaseMetadata(Connection connection , Properties properties)
 			throws SQLException {
         meta = connection.getMetaData();
         this.properties = properties ;
@@ -24,7 +24,7 @@ public class PlatformDatabaseMetadata{
 	
 	
 
-	private final List<PlatformTableMetaData> tables = new ArrayList<PlatformTableMetaData>();
+	private final List<EapTableMetaData> tables = new ArrayList<EapTableMetaData>();
 	private DatabaseMetaData meta;
 	private Properties properties ;
 	private static final String[] TYPES = { "TABLE", "VIEW" };
@@ -32,7 +32,7 @@ public class PlatformDatabaseMetadata{
 	 * 
 	 * @return
 	 */
-	public List<PlatformTableMetaData> getTables() {
+	public List<EapTableMetaData> getTables() {
 		return this.tables;
 	}
 	/**
@@ -44,13 +44,13 @@ public class PlatformDatabaseMetadata{
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PlatformTableMetaData> loadTables(String name, String schema, String catalog,
+	public List<EapTableMetaData> loadTables(String name, String schema, String catalog,
 			boolean isQuoted) throws Exception {
 		try {
 			if(properties!=null && properties.get("schema")!=null && schema==null){
 				schema = properties.get("upcase")!=null?((String)properties.get("schema")).toUpperCase():(String)properties.get("schema") ;
 			}
-			PlatformTableMetaData table = null;
+			EapTableMetaData table = null;
 			ResultSet rs = null , pkRs = null;
 			try {
 				if ((isQuoted && meta.storesMixedCaseQuotedIdentifiers())) {
@@ -72,7 +72,7 @@ public class PlatformDatabaseMetadata{
 				while (rs.next()) {
 					String tableName = rs.getString("TABLE_NAME");
 					if(tableName.matches("[\\da-zA-Z_-\u4e00-\u9fa5]+")){
-						table = new PlatformTableMetaData(rs, meta, true);
+						table = new EapTableMetaData(rs, meta, true);
 						tables.add(table);
 						
 						if ((isQuoted && meta.storesMixedCaseQuotedIdentifiers())) {
@@ -93,7 +93,7 @@ public class PlatformDatabaseMetadata{
 						
 						while(pkRs.next()){
 							String column = pkRs.getString("COLUMN_NAME") ;
-							for(PlatformColumnMetadata columnMetadata : table.getColumnMetadatas()){
+							for(EapColumnMetadata columnMetadata : table.getColumnMetadatas()){
 								if(columnMetadata.getName().equalsIgnoreCase(column)){
 									columnMetadata.setPk(true) ;
 								}
@@ -126,9 +126,9 @@ public class PlatformDatabaseMetadata{
 	 * @return
 	 * @throws Exception
 	 */
-	public PlatformTableMetaData loadTable(String name, String schema, String catalog,
+	public EapTableMetaData loadTable(String name, String schema, String catalog,
 			boolean isQuoted) throws Exception {
-		PlatformTableMetaData table = null;
+		EapTableMetaData table = null;
 		try {
 			if(properties!=null && properties.get("schema")!=null && schema==null){
 				schema = (String)properties.get("schema") ;
@@ -152,7 +152,7 @@ public class PlatformDatabaseMetadata{
 				}
 
 				while (rs.next()) {
-					table = new PlatformTableMetaData(rs, meta, true);
+					table = new EapTableMetaData(rs, meta, true);
 					break ;
 				}
 
@@ -175,9 +175,9 @@ public class PlatformDatabaseMetadata{
 	 * @return
 	 * @throws Exception
 	 */
-	public PlatformTableMetaData loadSQL(Statement statement ,String datasql, String tableName, String schema, String catalog,
+	public EapTableMetaData loadSQL(Statement statement ,String datasql, String tableName, String schema, String catalog,
 			boolean isQuoted) throws Exception {
-		PlatformTableMetaData table = null;
+		EapTableMetaData table = null;
 		if(properties!=null && properties.get("schema")!=null){
 			schema = (String)properties.get("schema") ;
 		}
@@ -187,7 +187,7 @@ public class PlatformDatabaseMetadata{
 			}
 			ResultSet rs = statement.executeQuery(datasql) ;
 			try {
-				table = new PlatformTableMetaData(tableName , schema , catalog , rs.getMetaData(), true);
+				table = new EapTableMetaData(tableName , schema , catalog , rs.getMetaData(), true);
 			} finally {
 				if (rs != null)
 					rs.close();
@@ -203,10 +203,10 @@ public class PlatformDatabaseMetadata{
 		Class.forName("com.mysql.jdbc.Driver");
 		Properties pro = new Properties();
 		pro.put("schema", "root") ;
-		PlatformDatabaseMetadata meta = new PlatformDatabaseMetadata(DriverManager.getConnection("jdbc:mysql://localhost:3306/rivu", "root","123456"),pro);
+		EapDatabaseMetadata meta = new EapDatabaseMetadata(DriverManager.getConnection("jdbc:mysql://localhost:3306/rivu", "root","123456"),pro);
 		meta.loadTables(null , null , null , true);
 		System.out.println(meta.tables.size());
-		for(PlatformTableMetaData table:meta.tables) {
+		for(EapTableMetaData table:meta.tables) {
 			System.out.println(table.getName());
 		}
 	}

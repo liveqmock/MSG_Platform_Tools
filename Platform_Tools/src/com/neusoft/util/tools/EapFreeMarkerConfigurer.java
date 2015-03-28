@@ -6,7 +6,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import freemarker.cache.TemplateLoader;
 
-public class PlatformCloudFreeMarkerConfigurer extends FreeMarkerConfigurer{
+public class EapFreeMarkerConfigurer extends FreeMarkerConfigurer{
     
     @Override
     protected TemplateLoader getAggregateTemplateLoader(List<TemplateLoader> templateLoaders) {

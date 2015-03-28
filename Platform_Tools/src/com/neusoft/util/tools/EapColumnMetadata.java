@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
  * @author iceworld
  *
  */
-public class PlatformColumnMetadata{
+public class EapColumnMetadata{
 	private boolean pk = false;
 	private String name;
     private String typeName;
@@ -20,7 +20,7 @@ public class PlatformColumnMetadata{
     private String isNullable;
     private int typeCode;
 
-    PlatformColumnMetadata(ResultSet rs) throws SQLException {
+    EapColumnMetadata(ResultSet rs) throws SQLException {
             name = rs.getString("COLUMN_NAME");
             columnSize = rs.getInt("COLUMN_SIZE");
             decimalDigits = rs.getInt("DECIMAL_DIGITS");
@@ -32,7 +32,7 @@ public class PlatformColumnMetadata{
             }
     }
     
-    PlatformColumnMetadata(String name , String typeName , int typeCode) throws SQLException {
+    EapColumnMetadata(String name , String typeName , int typeCode) throws SQLException {
         this.name = name ;
         this.typeCode = typeCode;
         this.typeName = typeName;

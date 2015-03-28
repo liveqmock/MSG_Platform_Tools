@@ -11,7 +11,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Table(name = "rivu_account")
+//@Table(name = "rivu_account")
+@Table(name = "EAP_ACCOUNT")
 @Proxy(lazy = false)
 public class Account implements Serializable {
 	private static final long serialVersionUID = 6885780733229621972L;
@@ -27,11 +28,12 @@ public class Account implements Serializable {
 	private float balance; // 余额
 	private float amount; // 总共
 	private Date lastop; // 上次充值时间
-	private String spare;// 备份字段				,变更用处，修改为   账户RSA签名
+	private String signature;//账户RSA签名
+	private String signatureType;//签名类型
 	private String spare1;// 备份字段
 
 	@Id
-	@Column(length = 32)
+	@Column(name="ACCOUNT_ID",length = 32)
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	public String getId() {
@@ -42,6 +44,11 @@ public class Account implements Serializable {
 		this.id = id;
 	}
 
+	/***
+	 * 账户名称
+	 * @return
+	 */
+	@Column(name="ACCOUNT_NAME")
 	public String getName() {
 		return this.name;
 	}
@@ -50,6 +57,11 @@ public class Account implements Serializable {
 		this.name = name;
 	}
 
+	/**
+	 * 账户代码
+	 * @return
+	 */
+	@Column(name="ACCOUNT_CODE")
 	public String getCode() {
 		return this.code;
 	}
@@ -58,14 +70,26 @@ public class Account implements Serializable {
 		this.code = code;
 	}
 
+	/***
+	 * 租户ID
+	 * @return
+	 */
+	@Column(name="TENANTS_ID")
 	public String getTid() {
 		return this.tid;
 	}
-
+	
+	
+	
 	public void setTid(String tid) {
 		this.tid = tid;
 	}
 
+	/***
+	 * 实例ID
+	 * @return
+	 */
+	@Column(name="ORIGIN_ID")
 	public String getOrgi() {
 		return this.orgi;
 	}
@@ -73,7 +97,11 @@ public class Account implements Serializable {
 	public void setOrgi(String orgi) {
 		this.orgi = orgi;
 	}
-
+	/***
+	 * 创建人ID
+	 * @return
+	 */
+	@Column(name="USER_ID")
 	public String getUserid() {
 		return this.userid;
 	}
@@ -82,6 +110,11 @@ public class Account implements Serializable {
 		this.userid = userid;
 	}
 
+	/**
+	 * 用户组
+	 * @return
+	 */
+	@Column(name="GROUP_ID")
 	public String getGroupid() {
 		return this.groupid;
 	}
@@ -90,6 +123,12 @@ public class Account implements Serializable {
 		this.groupid = groupid;
 	}
 
+	/**
+	 * 账户状态
+	 * 1：正常；0：冻结
+	 * @return
+	 */
+	@Column(name="ACCOUNT_STATUS")
 	public int getStatus() {
 		return status;
 	}
@@ -98,14 +137,16 @@ public class Account implements Serializable {
 		this.status = status;
 	}
 
-	public String getSpare() {
-		return spare;
+	@Column(name="ACCOUNT_SIGNATURE")
+	public String getSignature() {
+		return signature;
 	}
 
-	public void setSpare(String spare) {
-		this.spare = spare;
+	public void setSignature(String spare) {
+		this.signature = spare;
 	}
 
+	@Column(name="RESERVE_1")
 	public String getSpare1() {
 		return spare1;
 	}
@@ -117,7 +158,9 @@ public class Account implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 
+	@Column(name="FUNDS_BALANCE")
 	public float getBalance() {
 		return balance;
 	}
@@ -126,6 +169,7 @@ public class Account implements Serializable {
 		this.balance = balance;
 	}
 
+	@Column(name="TOTAL_AMOUNT")
 	public float getAmount() {
 		return amount;
 	}
@@ -134,6 +178,11 @@ public class Account implements Serializable {
 		this.amount = amount;
 	}
 
+	/**
+	 * 最后一次操作时间
+	 * @return
+	 */
+	@Column(name="LAST_OPERA_TIME")
 	public Date getLastop() {
 		return lastop;
 	}
@@ -142,11 +191,31 @@ public class Account implements Serializable {
 		this.lastop = lastop;
 	}
 
+	/***
+	 * 账户创建时间
+	 * @return
+	 */
+	@Column(name="CREATE_TIME")
 	public Date getCreatetime() {
 		return createtime;
 	}
 
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+	}
+
+	/**
+	 * @return the signatureType
+	 */
+	@Column(name="SIGNATURE_TYPE")
+	public String getSignatureType() {
+		return signatureType;
+	}
+
+	/**
+	 * @param signatureType the signatureType to set
+	 */
+	public void setSignatureType(String signatureType) {
+		this.signatureType = signatureType;
 	}
 }
